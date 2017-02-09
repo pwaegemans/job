@@ -2,35 +2,10 @@
 class ClearPar {
 	function build($string) {
 		$string_origin = $string;
-
-$pattern_origin = array('()');
-$pattern_result = array('()');
-
-$string_result = preg_filter($pattern_origin, $pattern_result, $string_origin); 
-return $string_result;
-
-/*
-		$pattern_origin = array ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', '&ntilde;', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', '&Ntilde;', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-		$pattern_result= array ('b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', '&ntilde;', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', '&Ntilde;', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A');
-		$string_origin = utf8_decode($string_origin);
-		$my_chars = preg_split('//', $string_origin);
-		$my_chars = array_map('utf8_encode', $my_chars);
-		$string_result = '';
-		foreach ($my_chars as $value) {
-			$value = htmlentities($value, ENT_QUOTES | ENT_IGNORE,"UTF-8");
-			if ( ($value != '') AND (in_array($value, $pattern_origin)) ) {
-				$key_origin = array_search($value, $pattern_origin);
-				$new_value = $pattern_result[$key_origin];
-				$string_result .= '<font color="#FF0000">';
-				$string_result .= $new_value;
-				$string_result .= '</font>';
-			} else {
-				$string_result .= $value;
-			}
-		}
-		unset($value);
+		$pattern_origin = array('()');
+		$pattern_result = array('()');
+		$string_result = preg_filter($pattern_origin, $pattern_result, $string_origin); 
 		return $string_result;
-		*/
 	}
 }
 ?>
