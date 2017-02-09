@@ -53,7 +53,7 @@ class CompleteRange {
         "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 	<head>
-		<title>Prueba Online - Programador BackEnd - Patrick Waegemans</title>
+		<title>Complete Range - Prueba Online - Programador BackEnd - Patrick Waegemans</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	</head>
 	<body style="background-color: #FFFFFF;">

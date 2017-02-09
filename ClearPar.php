@@ -2,19 +2,24 @@
 class ClearPar {
 	function build($string) {
 		$string_origin = $string;
-		$pattern_origin = array('()');
-		$pattern_result = array('()');
-		$string_result = preg_filter($pattern_origin, $pattern_result, $string_origin); 
+		$string_result = '';
+
+		$string_replaced .= preg_replace("/[^()]/", "", $string_origin); # filter to get only wished chars
+		$origine_cont = substr_count($string_replaced, '()'); # to know the number of matches
+		$origine_start = 1; # the loop start point;
+		while ($origine_start <= $origine_cont) {
+			$string_result .= '()'; # concat as looping
+			$origine_start++; #increment counter
+		}
+		$string_result .= '<br>'.$origine_cont.' matches'; # give extra info to client
 		return $string_result;
 	}
 }
 ?>
-<?php phpinfo(); ?>  
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 	<head>
-		<title>Prueba Online - Programador BackEnd - Patrick Waegemans</title>
+		<title>Clear Par - Prueba Online - Programador BackEnd - Patrick Waegemans</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	</head>
 	<body style="background-color: #FFFFFF;">
@@ -71,7 +76,7 @@ class ClearPar {
 			<table border="0" cellpadding="0" cellspacing="2" width="800" style="background-color: #FAFAFA;">
 				<tr>
 					<td>
-						Usando PHP, crear una clase llamada  ClearPar  que tenga un método llamado build  que reciba como parámetro una cadena formada sólo por paréntesis ( ()()()()(()))))())((() ). El algoritmo debe eliminar todos los paréntesis que no tienen pareja.Finalmente devolver la nueva cadena.<br>
+						Usando PHP, crear una clase llamada  ClearPar  que tenga un método llamado build  que reciba como parámetro una cadena formada sólo por paréntesis ( ()()()()(()))))())((() ). El algoritmo debe eliminar todos los paréntesis que no tienen pareja. Finalmente devolver la nueva cadena.<br>
 						<br>
 						Indicaciones<br>
 						<ul>
