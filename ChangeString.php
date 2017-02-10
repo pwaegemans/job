@@ -1,23 +1,23 @@
 <?php
 class ChangeString {
 	function build($string) {
-		$string_origin = $string;
-		$pattern_origin = array ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', '&ntilde;', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', '&Ntilde;', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-		$pattern_result= array ('b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', '&ntilde;', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', '&Ntilde;', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A');
-		$string_origin = utf8_decode($string_origin);
-		$my_chars = preg_split('//', $string_origin);
+		$string_origin = $string; # Get the string from user
+		$pattern_origin = array ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', '&ntilde;', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', '&Ntilde;', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); # Define the to be change pattern handeling a UTF alphabet
+		$pattern_result= array ('b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', '&ntilde;', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', '&Ntilde;', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A'); # Define the replace with pattern handeling a UTF alphabet
+		$string_origin = utf8_decode($string_origin); 
+		$my_chars = preg_split('//', $string_origin); # separate user chain into single chars
 		$my_chars = array_map('utf8_encode', $my_chars);
 		$string_result = '';
-		foreach ($my_chars as $value) {
+		foreach ($my_chars as $value) { # loop user chain
 			$value = htmlentities($value, ENT_QUOTES | ENT_IGNORE,"UTF-8");
-			if ( ($value != '') AND (in_array($value, $pattern_origin)) ) {
-				$key_origin = array_search($value, $pattern_origin);
-				$new_value = $pattern_result[$key_origin];
-				$string_result .= '<font color="#FF0000">';
-				$string_result .= $new_value;
+			if ( ($value != '') AND (in_array($value, $pattern_origin)) ) { # excluding empty value, only including char from the origin pattern
+				$key_origin = array_search($value, $pattern_origin); # collecting value position in origin
+				$new_value = $pattern_result[$key_origin]; # collecting value of the same position in the result patern
+				$string_result .= '<font color="#FF0000">'; # colorization of changed value
+				$string_result .= $new_value; # output new value
 				$string_result .= '</font>';
 			} else {
-				$string_result .= $value;
+				$string_result .= $value; # outpout unafected chain part no color
 			}
 		}
 		unset($value);
@@ -43,7 +43,6 @@ class ChangeString {
 				<tr>
 					<th style="background-color: #6699CC;">Problema 01 - Change String</th>
 				</tr>
-
 			</table>
 			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" target="_self">
 				<table width="800" align="center" cellpadding="15" cellspacing="5" bgcolor="#EEEEEE">
@@ -73,7 +72,7 @@ class ChangeString {
 								echo '<br>';
 								echo 'Result: <br>';
 								$myString = new ChangeString();
-								echo $myString->build($_POST['chain_origin']);								
+								echo $myString->build($_POST['chain_origin']);					
 							}
 							?>
 						</td>

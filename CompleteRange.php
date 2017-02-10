@@ -1,50 +1,42 @@
 <?php
 class CompleteRange {
-	function build($string) {
-		$string_origin = $string;
-		$possible_split = array(',', ';', '.', ' ', '/');
-		$pattern_origin = str_replace($possible_split, ",", $string_origin);
-		//$string_result = $pattern_origin;
-
-		$my_num_chain = preg_split('/,/', $pattern_origin, -1, PREG_SPLIT_NO_EMPTY);
-		$my_num_chain2 = array_unique($my_num_chain);
-		sort($my_num_chain2);
-		
-		$mychainstart = $my_num_chain2[0];
-		$mychainstart_count = 0;
-		$mychainend = 0;
-		foreach ($my_num_chain2 as $value) {
-			if (is_numeric($value)) {
-				if ( ($mychainstart_count == 0) AND ($value >= $mychainstart) AND ($value >= 0) ) {
+	function build($string) { 
+		$string_origin = $string; # Get the string from user
+		$possible_split = array(',', ';', '.', ' ', '/'); # allowing extended separator for better user confort, space managed as separator
+		$pattern_origin = str_replace($possible_split, ",", $string_origin); # reformatting user chain with extended separators into only coma separated chain
+		$my_num_chain = preg_split('/,/', $pattern_origin, -1, PREG_SPLIT_NO_EMPTY); # separate user chain into single values
+		$my_num_chain2 = array_unique($my_num_chain); # making values unique
+		sort($my_num_chain2); # ordering the chain ascendent
+		$mychainstart = $my_num_chain2[0]; # Get the first value
+		$mychainstart_count = 0; # to control the loop for setting first valid value
+		$mychainend = 0; # to control the loop for setting last valid value
+		foreach ($my_num_chain2 as $value) { # loop the value
+			if (is_numeric($value)) { # exclusing non numeric value
+				if ( ($mychainstart_count == 0) AND ($value >= $mychainstart) AND ($value >= 0) ) { # control first valid value
 					$mychainstart_count = 1;
-					$mychainstart = $value;
+					$mychainstart = $value; # Define first value to final loop
 				}
-				$mychainend = $value;
+				$mychainend = $value; # define last value of the final loop 
 			}
 		}
-
 		$mychainnow = $mychainstart;
-		if ($mychainend > $mychainstart) {
-			while ($mychainend >= $mychainnow) {
-				if (in_array($mychainnow, $my_num_chain2)) {
-					$string_result .= $mychainnow;
+		if ($mychainend > $mychainstart) { # control if chain in not a single value
+			while ($mychainend >= $mychainnow) { # start a loop from start value to end value
+				if (in_array($mychainnow, $my_num_chain2)) { # verify if this value what in user chain
+					$string_result .= $mychainnow; # output a final result value that was in the user chain
 				} else {
-					$string_result .= '<font color="#FF0000">';
-					$string_result .= $mychainnow;
+					$string_result .= '<font color="#FF0000">'; # colorization for missing value from user chain
+					$string_result .= $mychainnow; # output a final result value missing from user chain
 					$string_result .= '</font>';
 				}
 				if ($mychainnow < $mychainend) {
-					$string_result .= ', ';
+					$string_result .= ', '; # output separator for final result
 				}
-				$mychainnow++;
+				$mychainnow++; # to control the end of the loop
 			}
 		} else {
-			$string_result .= 'Invalid chain for this test';
+			$string_result .= 'Invalid chain for this test'; # to output a warning message to user
 		}
-
-		#reset($my_num_chain2);
-		#$string_result .= '<br><br><br><br>all chain = '.print_r($my_num_chain2).'<br>';
-
 		return $string_result;
 	}
 }
@@ -67,7 +59,6 @@ class CompleteRange {
 				<tr>
 					<th style="background-color: #6699CC;">Problema 02 - Complete Range</th>
 				</tr>
-
 			</table>
 			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" target="_self">
 				<table width="800" align="center" cellpadding="15" cellspacing="5" bgcolor="#EEEEEE">
